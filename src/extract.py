@@ -27,6 +27,8 @@ def extract_model_preds(
     modelf,
     dataroot="/data/nuscenes",
     output_path="model_predictions.pkl",
+    train_labels_path="/home/ashen3/autonomy-stack/dataset/nuscenes-train/labels.pkl",
+    val_labels_path="/home/ashen3/autonomy-stack/dataset/nuscenes-val/labels.pkl",
     gpuid=1,
     segmentation=False,
     H=900,
@@ -87,10 +89,10 @@ def extract_model_preds(
 
     # get frames lookup
     with open(
-        "/home/ashen3/autonomy-stack/dataset/nuscenes-train/labels.pkl", "rb"
+        train_labels_path, "rb"
     ) as f:
         train_labels = pickle.load(f)
-    with open("/home/ashen3/autonomy-stack/dataset/nuscenes-val/labels.pkl", "rb") as f:
+    with open(val_labels_path, "rb") as f:
         val_labels = pickle.load(f)
     labels = {**train_labels, **val_labels}
     frames_lookup = {}
